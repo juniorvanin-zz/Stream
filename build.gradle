@@ -11,4 +11,5 @@ repositories {
 }
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version: '4.2.4.RELEASE'
+    compile 'log4j:log4j:1.2.16'
 }
