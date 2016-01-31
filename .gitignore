@@ -1,0 +1,14 @@
+# IntelliJ settings
+.idea
+*.iml
+
+# Mac OS Hidden files
+.DS_Store
+
+# Log files
+*.log
+
+# Gradle folders
+build
+classes
+.gradle
