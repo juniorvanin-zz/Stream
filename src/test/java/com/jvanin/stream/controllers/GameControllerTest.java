@@ -1,6 +1,7 @@
 package com.jvanin.stream.controllers;
 
 import com.jvanin.stream.domain.Game;
+import com.jvanin.stream.rest.GameController;
 import com.jvanin.stream.services.GameService;
 import org.junit.Before;
 import org.junit.Test;
