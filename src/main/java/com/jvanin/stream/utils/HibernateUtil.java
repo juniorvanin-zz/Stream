@@ -15,7 +15,7 @@ public class HibernateUtil {
             try {
 
                 Configuration configuration = new Configuration();
-                configuration.configure("hibernate-annotation.cfg.xml");
+                configuration.configure("hibernate-configuration.xml");
 
                 configuration.addAnnotatedClass(Game.class);
 
