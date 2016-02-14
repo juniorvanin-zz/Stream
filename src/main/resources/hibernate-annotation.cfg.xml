@@ -9,10 +9,5 @@
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/stream</property>
         <property name="hibernate.connection.username">stream</property>
         <property name="hibernate.connection.password">str34m</property>
-
-        <property name="hibernate.current_session_context_class">thread</property>
-
-        <mapping package="com.jvanin.stream.domain"/>
-        <mapping class="com.jvanin.stream.domain.Game"/>
     </session-factory>
 </hibernate-configuration>
