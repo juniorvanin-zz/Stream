@@ -2,51 +2,43 @@ package com.jvanin.stream.dao.impl;
 
 import com.jvanin.stream.dao.GameDao;
 import com.jvanin.stream.domain.Game;
-import com.jvanin.stream.utils.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 
 @Repository
+@Transactional
 public class GameDaoImpl implements GameDao {
+
+    @PersistenceContext
+    private EntityManager manager;
+
     @Override
     public List<Game> getAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        List<Game> games = (List<Game>) session.createQuery("from Game").list();
-        transaction.commit();
-        return games;
+        return manager.createQuery("from Game").getResultList();
     }
 
     @Override
     public Long save(Game game) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(game);
-        transaction.commit();
-
+        manager.persist(game);
         return game.getId();
     }
 
     @Override
     public Game findById(Long id) {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Game game = session.get(Game.class, id);
-
-        return game;
+        return manager.find(Game.class, id);
     }
 
     @Override
     public void delete(Long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction transaction = session.beginTransaction();
         Game game = this.findById(id);
-        session.delete(game);
-        transaction.commit();
+        manager.remove(game);
     }
 }

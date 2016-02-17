@@ -3,15 +3,19 @@ package com.jvanin.stream.services;
 import com.jvanin.stream.dao.GameDao;
 import com.jvanin.stream.domain.Game;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class GameService {
 
-    @Autowired
     GameDao gameDao;
+
+    @Autowired
+    public GameService(GameDao gameDao){
+        this.gameDao = gameDao;
+    }
 
     public List<Game> getAll() {
         return gameDao.getAll();
