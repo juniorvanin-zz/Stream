@@ -19,7 +19,7 @@ public class GameController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Game> getAllGames() {
+    public List<Game> getAll() {
         return gameService.getAll();
     }
 

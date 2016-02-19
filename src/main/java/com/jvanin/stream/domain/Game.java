@@ -23,4 +23,8 @@ public class Game {
     private Long id;
     private String title;
     private int year;
+
+    @OneToOne
+    @JoinColumn(name = "developer")
+    private Developer developer;
 }

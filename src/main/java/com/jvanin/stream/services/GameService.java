@@ -2,6 +2,8 @@ package com.jvanin.stream.services;
 
 import com.jvanin.stream.dao.GameDao;
 import com.jvanin.stream.domain.Game;
+import com.jvanin.stream.exceptions.CouldNotSaveResourceException;
+import com.jvanin.stream.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +20,32 @@ public class GameService {
     }
 
     public List<Game> getAll() {
-        return gameDao.getAll();
+        List<Game> games = gameDao.getAll();
+
+        if (games == null){
+            throw new ResourceNotFoundException("Game");
+        }
+
+        return games;
     }
 
     public Long save(Game game) {
         gameDao.save(game);
+
+        if (game.getId() == null) {
+            throw new CouldNotSaveResourceException();
+        }
         return game.getId();
     }
 
     public Game getById(Long id) {
-        return gameDao.findById(id);
+        Game game = gameDao.findById(id);
+
+        if (game == null){
+            throw new ResourceNotFoundException("Game", id);
+        }
+
+        return game;
     }
 
     public void delete(Long id) {
