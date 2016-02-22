@@ -1,7 +1,10 @@
 package com.jvanin.stream.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -9,11 +12,23 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.util.Properties;
 
 @Configuration
+@PropertySource("classpath:conf/database.properties")
 @EnableTransactionManagement
 public class DataBaseConfig {
+
+    @Value("${com.jvanin.stream.config.driver}")
+    private String driver;
+
+    @Value("${com.jvanin.stream.config.url}")
+    private String url;
+
+    @Value("${com.jvanin.stream.config.username}")
+    private String username;
+
+    @Value("${com.jvanin.stream.config.password}")
+    private String password;
 
 
     @Bean
@@ -23,17 +38,16 @@ public class DataBaseConfig {
     entityManager.setPackagesToScan(new String[] {"com.jvanin.stream.domain"});
     JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     entityManager.setJpaVendorAdapter(vendorAdapter);
-    entityManager.setJpaProperties(jpaProperties());
     return entityManager;
     }
 
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
-        driverManagerDataSource.setDriverClassName("org.postgresql.Driver");
-        driverManagerDataSource.setUsername("stream");
-        driverManagerDataSource.setPassword("str34m");
-        driverManagerDataSource.setUrl("jdbc:postgresql://localhost:5432/stream");
+        driverManagerDataSource.setDriverClassName(driver);
+        driverManagerDataSource.setUsername(username);
+        driverManagerDataSource.setPassword(password);
+        driverManagerDataSource.setUrl(url);
         return driverManagerDataSource;
     }
 
@@ -42,11 +56,9 @@ public class DataBaseConfig {
         return new JpaTransactionManager(entityManagerFactoryBean().getObject());
     }
 
-    private Properties jpaProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("databasePlatform", "org.hibernate.dialect.PostgreSQL94Dialect");
-        properties.setProperty("showSql", "trues");
-        return properties;
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
     }
 
 }
