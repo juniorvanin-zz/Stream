@@ -12,3 +12,6 @@
 build
 classes
 .gradle
+
+#Vagrant files
+.vagrant/
