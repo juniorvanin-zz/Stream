@@ -1,24 +1,19 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'war'
-apply plugin: 'jetty'
 
-jettyRun.contextPath = ""
-jettyRun.httpPort = 8080
 
 repositories {
     maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
     compile group: 'org.springframework', name: 'spring-webmvc', version: '4.2.4.RELEASE'
+    compile 'org.springframework:spring-orm:4.2.4.RELEASE'
     compile 'log4j:log4j:1.2.16'
     compile 'org.projectlombok:lombok:1.16.6'
     compile 'mysql:mysql-connector-java:5.1.38'
-    compile 'org.springframework:spring-orm:4.2.4.RELEASE'
     compile 'org.hibernate:hibernate-entitymanager:5.1.0.Final'
-
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:1.10.19'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.1-1'
 }
 
 task deployLocal(type: Exec) {
@@ -27,8 +22,9 @@ task deployLocal(type: Exec) {
     mustRunAfter 'build'
 
     commandLine 'curl','--upload-file', 'build/libs/Stream.war', 'http://manager-script:admin@192.168.33.15:8080/manager/text/deploy?path=/&update=true'
-
 }
+
+
 
 
 
