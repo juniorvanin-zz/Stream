@@ -20,3 +20,15 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
 }
+
+task deployLocal(type: Exec) {
+    description "Deploy application locally"
+    group 'Publishing'
+    mustRunAfter 'build'
+
+    commandLine 'curl','--upload-file', 'build/libs/Stream.war', 'http://manager-script:admin@192.168.33.15:8080/manager/text/deploy?path=/&update=true'
+
+}
+
+
+
