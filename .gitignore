@@ -20,9 +20,3 @@ classes
 Puppetfile.lock
 .tmp
 .librarian
-modules
-
-!modules/java/*
-!modules/mysql/*
-!modules/stream/*
-!modules/tomcat/*
