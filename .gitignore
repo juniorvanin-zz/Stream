@@ -22,7 +22,7 @@ Puppetfile.lock
 .librarian
 modules
 
-!modules/java
-!modules/mysql
-!modules/stream
-!modules/tomcat
+!modules/java/*
+!modules/mysql/*
+!modules/stream/*
+!modules/tomcat/*
