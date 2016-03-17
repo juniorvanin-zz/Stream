@@ -15,3 +15,14 @@ classes
 
 #Vagrant files
 .vagrant
+
+#Puppet and Librarian
+Puppetfile.lock
+.tmp
+.librarian
+modules
+
+!modules/java
+!modules/mysql
+!modules/stream
+!modules/tomcat
