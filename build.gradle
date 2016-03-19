@@ -17,9 +17,8 @@ dependencies {
     compile group:'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.1-1'
 }
 
-task deployLocal(type: Exec) {
+task deploy(type: Exec) {
     description "Deploy application locally"
-    group 'Publishing'
     mustRunAfter 'build'
 
     commandLine 'curl','--upload-file', 'build/libs/Stream.war', 'http://manager-script:admin@192.168.33.15:8080/manager/text/deploy?path=/&update=true'
