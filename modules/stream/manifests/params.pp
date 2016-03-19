@@ -3,6 +3,11 @@ class stream::params {
         "host"     => "192.168.33.14",
         "user"     => "stream",
         "password" => "str34m",
-        "schema"   => "stream"
+        "schema"   => "stream",
+    }
+
+    $nagios = {
+        "user"      => "nagiosadmin",
+        "password"  => "secret",
     }
 }

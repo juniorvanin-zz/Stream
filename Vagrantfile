@@ -24,5 +24,15 @@ VAGRANTFILE_API_VERSION = "2"
                                       :ip => "192.168.33.15"
     end
 
+    config.vm.define :monitor do |monitor_config|
+        monitor_config.vm.host_name = "monitor"
+        monitor_config.vm.provision "puppet" do |puppet|
+            puppet.module_path = "modules"
+            puppet.manifest_file = "nagios.pp"
+        end
+        monitor_config.vm.network :private_network,
+                              :ip => "192.168.33.16"
+    end
+
 
 end
