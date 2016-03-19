@@ -1,0 +1,22 @@
+mysql_driver=com.mysql.jdbc.Driver
+mysql_connector=migrations/connectors/mysql-connector-java-5.1.38-bin.jar
+liquibase_changelog=src/main/resources/liquibase/db-changeLog.xml
+db_url=jdbc:mysql://192.168.33.14:3306/stream
+db_user=stream
+db_password=str34m
+
+at_mysql=mysql -u $(db_user) -p$(db_password)
+db_seed_data=/vagrant/migrations/db_seed.sql
+
+db-migrate:
+	sh migrations/liquibase/run \
+		--driver=$(mysql_driver) \
+		--classpath=$(mysql_connector) \
+		--changeLogFile=$(liquibase_changelog) \
+		--url=$(db_url) \
+		--username=$(db_user) \
+		--password=$(db_password) \
+		update
+
+db-seed:
+	$(at_database) '$(at_mysql) < $(db_seed_data)'

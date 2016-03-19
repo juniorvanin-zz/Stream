@@ -7,11 +7,42 @@
    http://www.liquibase.org/xml/ns/dbchangelog
    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="jvanin" id="createTable-example">
-        <createTable catalogName="stream"
-                     tableName="example">
-            <column name="test" type="varchar(255)"/>
+    <changeSet author="jvanin" id="1">
+        <createTable tableName="movie">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="year" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="developer" type="int">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
+    </changeSet>
+
+    <changeSet author="jvanin" id="2">
+        <createTable tableName="developer">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="jvanin" id="3">
+        <addForeignKeyConstraint baseColumnNames="developer"
+                                 baseTableName="movie"
+                                 constraintName="fk_movie_developer"
+                                 onDelete="CASCADE"
+                                 onUpdate="RESTRICT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="developer"/>
     </changeSet>
 
 </databaseChangeLog>
