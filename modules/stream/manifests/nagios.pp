@@ -7,4 +7,10 @@ class stream::nagios inherits stream {
         password  => $stream::params::nagios['password'],
     }
 
+    file { "/etc/nagios3/conf.d/stream.cfg":
+        owner   => nagios,
+        group   => nagios,
+        content => template("stream/stream.cfg"),
+        notify  => Service["nagios"],
+    }
 }
