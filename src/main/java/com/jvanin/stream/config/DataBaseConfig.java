@@ -7,9 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
-import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -36,18 +34,10 @@ public class DataBaseConfig {
     LocalContainerEntityManagerFactoryBean  entityManager = new LocalContainerEntityManagerFactoryBean();
     entityManager.setDataSource(dataSource());
     entityManager.setPackagesToScan(new String[] {"com.jvanin.stream.domain"});
-    entityManager.setJpaVendorAdapter(jpaVendorAdapter());
+    entityManager.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
     return entityManager;
     }
 
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter(){
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setShowSql(true);
-        vendorAdapter.setGenerateDdl(true);
-        vendorAdapter.setDatabase(Database.MYSQL);
-        return vendorAdapter;
-    }
     @Bean
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource driverManagerDataSource = new DriverManagerDataSource();
