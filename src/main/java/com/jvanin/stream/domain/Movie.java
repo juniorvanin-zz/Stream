@@ -10,10 +10,10 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="game", uniqueConstraints={@UniqueConstraint(columnNames={"id"})})
-public class Game {
+@Table(name="movie", uniqueConstraints={@UniqueConstraint(columnNames={"id"})})
+public class Movie {
 
-    public Game(String title, int year){
+    public Movie(String title, int year){
         this.title = title;
         this.year = year;
     }
