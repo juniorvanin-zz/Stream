@@ -1,0 +1,14 @@
+deploy-local:
+	make tomcat-stop
+	$(at_application) "sudo rm -rf /var/lib/tomcat7/webapps/*"
+	$(at_application) "sudo cp /vagrant/build/libs/Stream.war /var/lib/tomcat7/webapps/ROOT.war"
+	make tomcat-start
+
+tomcat-restart:
+	$(at_application) 'sudo /etc/init.d/tomcat7 restart'
+
+tomcat-stop:
+	$(at_application) 'sudo /etc/init.d/tomcat7 stop'
+
+tomcat-start:
+	$(at_application) 'sudo /etc/init.d/tomcat7 start'

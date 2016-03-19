@@ -16,12 +16,4 @@ class stream::web inherits stream {
       match   => "#JAVA_HOME.*.\n",
       require => Package["tomcat7"],
     }
-
-    file { "setup-tomcat-manager":
-        name    => "/var/lib/tomcat7/conf/tomcat-users.xml",
-        replace => true,
-        source => "puppet:///modules/stream/tomcat-users.xml",
-        require => Package["tomcat7"],
-        notify  => Service["tomcat7"],
-    }
 }
